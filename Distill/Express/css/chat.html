@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatApp</title>
+<style> p{color:pink; text-align:center; background-color: black;}
+        li{font-family: Georgia; text-align: center; }
+</style>
+</head>
+
+<body>
+<ul id="list"></ul>
+<form id="form">
+<input id="name" placeholder="Name">
+<input id="input" placeholder="Message">
+<button>Send</button>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const socket=io();
+const form=document.getElementById('form');
+const name=document.getElementById('name');
+const input=document.getElementById('input');
+const list=document.getElementById('list');
+form.addEventListener('submit',e=>{
+e.preventDefault();
+if(input.value){
+socket.emit('name',name.value);
+socket.emit('chat message',input.value);
+input.value=" ";
+}
+})
+socket.on('name',user=>{
+const item=document.createElement('p');
+item.textContent=user;
+list.appendChild(item);
+})
+socket.on('chat message',msg=>{
+const item=document.createElement('li');
+item.textContent=msg;
+list.appendChild(item);
+})
+</script>
+</body>
+</html>

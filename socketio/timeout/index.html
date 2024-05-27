@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO Demo</title>
+  </head>
+  <body>
+    <p id="number"></p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      socket.on('number', function(number) {
+        document.getElementById('number').innerText = 'Number: ' + number;
+      });
+    </script>
+  </body>
+</html>
